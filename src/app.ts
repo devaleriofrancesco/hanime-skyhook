@@ -6,5 +6,5 @@ const app = express();
 app.use('/tmdb', tmdbRouter);
 
 app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+    console.log('Skyhook TMDB listening on port 3000!');
 });

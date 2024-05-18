@@ -2,8 +2,7 @@ import {Images, TMDB, TvShowDetails} from '@francescodevalerio/tmdb-ts';
 import {Episode, SkyHookImage, SkyHookSerie} from "../models/SkyHookSerie";
 import moment from 'moment';
 import slugify from "slugify";
-import dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config';
 
 export class Tmdb {
 
@@ -11,7 +10,7 @@ export class Tmdb {
     IMAGES_BASE_URL = 'https://image.tmdb.org/t/p/original';
 
     constructor() {
-        this._movieDb = new TMDB(process.env.TMDB_API_KEY);
+        this._movieDb = new TMDB(process.env.TMDB_API_KEY ?? 'NOKEY');
     }
 
 
