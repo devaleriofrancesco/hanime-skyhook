@@ -104,7 +104,7 @@ export class Tmdb {
             network: details.production_companies.at(0)?.name ?? '-',
             genres: details.genres.map(genre => genre.name),
             contentRating: "TV-18",
-            alternativeTitles: alternativeTitles.titles?.map(title => title.title) ?? [],
+            alternativeTitles: alternativeTitles.results?.map(title => title.title) ?? [],
             actors: [], // @TODO in the future
             images: newImages,
             seasons: details.seasons.map(season => {
