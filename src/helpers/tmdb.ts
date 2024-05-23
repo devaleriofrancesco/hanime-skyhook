@@ -8,6 +8,7 @@ export class Tmdb {
 
     _movieDb: TMDB;
     IMAGES_BASE_URL = 'https://image.tmdb.org/t/p/original';
+    HANIME_KEYWORD_ID = "198385";
 
     constructor() {
         this._movieDb = new TMDB(process.env.TMDB_API_KEY ?? 'NOKEY');
@@ -30,6 +31,25 @@ export class Tmdb {
 
     async searchById(tvdbId: number, includeEpisodes?: boolean | undefined): Promise<SkyHookSerie> {
         return this.getSkyHookShow(tvdbId, includeEpisodes);
+    }
+
+    async getLatestNews(pageNumber: number = 1): Promise<SkyHookSerie[]> {
+        const today = moment();
+        const news = await this._movieDb.discover.tvShow({
+            include_adult: true,
+            with_keywords: this.HANIME_KEYWORD_ID,
+            "first_air_date.gte": today.subtract(1, "year").format('YYYY-MM-DD'),
+            "first_air_date.lte": today.format('YYYY-MM-DD'),
+            include_null_first_air_dates: true,
+            sort_by: "first_air_date.desc",
+            page: pageNumber,
+            with_original_language: "ja",
+        });
+        const result: SkyHookSerie[] = [];
+        for (const item of news.results) {
+            result.push(await this.getSkyHookShow(item.id));
+        }
+        return result;
     }
 
     /**
@@ -123,6 +143,7 @@ export class Tmdb {
             case 'Returning Series':
                 status = 'continuing';
                 break;
+            case 'Planned':
             case 'In Production':
                 status = 'upcoming';
                 break;

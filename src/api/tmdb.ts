@@ -20,3 +20,11 @@ tmdbRouter.get("/shows/:language/:id", function (req, res) {
         .then(r => res.json(r))
         .catch(e => console.log(e));
 });
+
+// latest news
+tmdbRouter.get("/latest/:language/:pageNumber", function (req, res) {
+    const pageNumber = req.params?.pageNumber || "1";
+    tmdbHelper.getLatestNews(parseInt(pageNumber))
+        .then(r => res.json(r))
+        .catch(e => console.log(e));
+});
