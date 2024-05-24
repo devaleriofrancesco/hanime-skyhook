@@ -1,5 +1,5 @@
 import {Images, TMDB, TvShowDetails} from '@francescodevalerio/tmdb-ts';
-import {Episode, SkyHookImage, SkyHookSerie} from "../models/SkyHookSerie";
+import {AlternativeTitle, Episode, SkyHookImage, SkyHookSerie} from "../models/SkyHookSerie";
 import moment from 'moment';
 import slugify from "slugify";
 import 'dotenv/config';
@@ -104,7 +104,7 @@ export class Tmdb {
             network: details.production_companies.at(0)?.name ?? '-',
             genres: details.genres.map(genre => genre.name),
             contentRating: "TV-18",
-            alternativeTitles: alternativeTitles.results?.map(title => title.title) ?? [],
+            alternativeTitles: alternativeTitles.results?.map(alternative => <AlternativeTitle> {title: alternative.title}) ?? [],
             actors: [], // @TODO in the future
             images: newImages,
             seasons: details.seasons.map(season => {

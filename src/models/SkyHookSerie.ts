@@ -19,11 +19,15 @@ export interface SkyHookSerie {
     network: string;
     genres: string[];
     contentRating: string;
-    alternativeTitles: string[];
+    alternativeTitles: AlternativeTitle[];
     actors: object;
     images: object;
     seasons: object;
     episodes?: Episode[]
+}
+
+export interface AlternativeTitle {
+    title: string;
 }
 
 export interface TimeOfDay {
