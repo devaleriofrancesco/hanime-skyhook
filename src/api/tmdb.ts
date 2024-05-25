@@ -28,3 +28,11 @@ tmdbRouter.get("/latest/:language/:pageNumber", function (req, res) {
         .then(r => res.json(r))
         .catch(e => console.log(e));
 });
+
+// alternate titles
+tmdbRouter.get("/alternateTitles/:language/:tvdbId", function (req, res) {
+    const tvdbId = req.params!.tvdbId;
+    tmdbHelper.getAlternateTitles(parseInt(tvdbId))
+        .then(r => res.json(r))
+        .catch(e => console.log(e));
+});

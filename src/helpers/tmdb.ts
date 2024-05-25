@@ -52,6 +52,15 @@ export class Tmdb {
         return result;
     }
 
+    async getAlternateTitles(tvdbId: number): Promise<AlternativeTitle[]> {
+        const alternativeTitles = await this._movieDb.tvShows
+            .alternativeTitles(tvdbId);
+        return alternativeTitles.results?.map(result => <AlternativeTitle> {
+            title: result.title,
+            tvdbId: tvdbId
+        }) ?? [];
+    }
+
     /**
      * Get SkyHook formatted show
      * @param tvdbId
@@ -104,7 +113,7 @@ export class Tmdb {
             network: details.production_companies.at(0)?.name ?? '-',
             genres: details.genres.map(genre => genre.name),
             contentRating: "TV-18",
-            alternativeTitles: alternativeTitles.results?.map(alternative => <AlternativeTitle> {title: alternative.title}) ?? [],
+            alternateTitles: alternativeTitles.results?.map(alternative => <AlternativeTitle> {title: alternative.title, tvdbId: tvdbId}) ?? [],
             actors: [], // @TODO in the future
             images: newImages,
             seasons: details.seasons.map(season => {

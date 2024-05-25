@@ -19,7 +19,7 @@ export interface SkyHookSerie {
     network: string;
     genres: string[];
     contentRating: string;
-    alternativeTitles: AlternativeTitle[];
+    alternateTitles: AlternativeTitle[];
     actors: object;
     images: object;
     seasons: object;
@@ -27,6 +27,7 @@ export interface SkyHookSerie {
 }
 
 export interface AlternativeTitle {
+    tvdbId: number;
     title: string;
 }
 
