@@ -135,7 +135,7 @@ export class Tmdb {
                 tvdbId: episodes.id,
                 airDate: episodes.air_date,
                 runtime: episodes.runtime ?? 10,
-                airDateUtc: moment(episodes.air_date).utc().format(),
+                airDateUtc: episodes.air_date ? (moment(episodes.air_date)).utc().format() : null,
                 episodeNumber: episodes.episode_number,
                 seasonNumber: episodes.season_number,
                 tvdbShowId: episodes.show_id
